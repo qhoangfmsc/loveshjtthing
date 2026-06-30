@@ -76,6 +76,17 @@ export default function Home() {
     setSparkles(generateSparkles(25));
     // Trigger entrance animation
     const t = setTimeout(() => setVisible(true), 200);
+
+    // Log visit
+    fetch("/api/visit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        screenWidth: window.screen.width,
+        screenHeight: window.screen.height,
+      }),
+    }).catch(() => {});
+
     return () => clearTimeout(t);
   }, []);
 
