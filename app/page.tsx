@@ -78,23 +78,60 @@ export default function Home() {
     const t = setTimeout(() => setVisible(true), 200);
 
     // Log visit
+    const enterTime = Date.now();
     fetch("/api/visit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        event: "visit",
         screenWidth: window.screen.width,
         screenHeight: window.screen.height,
       }),
     }).catch(() => {});
 
-    return () => clearTimeout(t);
+    // Track exit
+    let exitSent = false;
+    const sendExit = () => {
+      if (exitSent) return;
+      exitSent = true;
+      const duration = Math.round((Date.now() - enterTime) / 1000);
+      const data = JSON.stringify({ event: "exit", duration });
+      // sendBeacon is more reliable on page close
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon("/api/visit", new Blob([data], { type: "application/json" }));
+      } else {
+        fetch("/api/visit", { method: "POST", headers: { "Content-Type": "application/json" }, body: data, keepalive: true }).catch(() => {});
+      }
+    };
+
+    const onVisChange = () => {
+      if (document.visibilityState === "hidden") sendExit();
+    };
+    document.addEventListener("visibilitychange", onVisChange);
+    window.addEventListener("beforeunload", sendExit);
+
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("visibilitychange", onVisChange);
+      window.removeEventListener("beforeunload", sendExit);
+    };
   }, []);
 
   useEffect(() => {
+    let scrollSent = false;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setMessageVisible(true);
+          // Track scroll (only once)
+          if (!scrollSent) {
+            scrollSent = true;
+            fetch("/api/visit", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ event: "scroll" }),
+            }).catch(() => {});
+          }
         }
       },
       { threshold: 0.3 }
