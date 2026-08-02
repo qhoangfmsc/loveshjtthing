@@ -1,0 +1,404 @@
+@import "tailwindcss";
+
+/*
+  Font tokens exposed as Tailwind utilities (font-sans / font-script / font-hand / font-serif).
+  The underlying --font-* custom properties are set by next/font on <html> in
+  layout.tsx. See .agent/skills/design-style.md for when to use which.
+*/
+@theme inline {
+  --font-sans: var(--font-quicksand);
+  --font-script: var(--font-dancing);
+  --font-hand: var(--font-signature);
+  --font-serif: var(--font-cormorant);
+
+  --animate-heart-beat: heartBeat 1.4s ease-in-out infinite;
+  --animate-heart-float: heartFloat 4s ease-in-out infinite;
+  --animate-name-glow: nameGlow 3s ease-in-out infinite alternate;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out both;
+  --animate-bounce-down: bounceDown 2s ease-in-out infinite;
+  --animate-emoji-pop: emojiPop 2s ease-in-out infinite;
+  --animate-card-reveal: cardReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-ambient-glow: ambientGlow 7s ease-in-out infinite;
+  --animate-envelope-float: envelopeFloat 4.5s ease-in-out infinite;
+  --animate-hint-pulse: hintPulse 2.2s ease-in-out infinite;
+  --animate-sheen-sweep: sheenSweep 1.4s ease 1.15s 1 both;
+  --animate-foil-sweep: foilSweep 1.6s ease 1s 1 both;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-quicksand), sans-serif;
+}
+
+/* ==========================================================================
+   Shared particle utilities — ambient/one-shot decorative motifs used by
+   more than one page. Per-instance randomness (position/size/timing) is
+   passed in as inline CSS custom properties from the component.
+   See .agent/skills/design-style.md → "Icon & trang trí".
+   ========================================================================== */
+@layer components {
+  .particle-heart {
+    position: absolute;
+    bottom: -30px;
+    opacity: 0;
+    animation: floatUp var(--duration) var(--delay) ease-out infinite;
+  }
+  .particle-heart svg {
+    width: var(--size);
+    height: var(--size);
+    filter: drop-shadow(0 0 6px var(--glow-color));
+  }
+
+  .particle-spark {
+    position: absolute;
+    width: var(--spark-size, 4px);
+    height: var(--spark-size, 4px);
+    border-radius: 50%;
+    opacity: 0;
+    filter: blur(0.4px);
+    animation: sparkleAnim var(--spark-duration, 3s) var(--spark-delay, 0s) ease-in-out infinite;
+  }
+  .particle-spark--white {
+    background: white;
+    box-shadow: 0 0 6px 2px rgba(255, 200, 230, 0.6);
+  }
+  .particle-spark--gold {
+    background: #ffe9c2;
+    box-shadow: 0 0 8px 2px rgba(240, 201, 135, 0.55);
+  }
+
+  .particle-petal {
+    position: absolute;
+    top: -40px;
+    opacity: 0;
+    animation: petalFall var(--duration) var(--delay) ease-in infinite;
+  }
+  .particle-petal svg {
+    width: var(--size);
+    height: var(--size);
+    filter: drop-shadow(0 0 6px rgba(255, 180, 120, 0.25));
+  }
+
+  .particle-burst {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    animation: burstOut var(--burst-duration, 1s) var(--burst-delay, 0s) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .particle-burst svg {
+    width: var(--burst-size);
+    height: var(--burst-size);
+    filter: drop-shadow(0 0 6px rgba(240, 201, 135, 0.4));
+  }
+
+  /* Subtle fibrous paper-grain overlay — layer onto any solid paper/card
+     surface (envelope, letter, photo mats) so it reads as real stock
+     instead of a flat vector fill. Cheap: one tiny SVG noise filter. */
+  .paper-grain {
+    position: relative;
+  }
+  .paper-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+/* ==========================================================================
+   Home page ("/") — composite visuals Tailwind utilities can't express
+   cleanly (multi-stop gradients, layered filters/shadows).
+   ========================================================================== */
+@layer components {
+  .home-scene-bg {
+    background: linear-gradient(135deg, #1a0011 0%, #2d0a1e 25%, #1a0022 50%, #0d0015 100%);
+  }
+
+  .home-scene-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 50, 100, 0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 30% 60%, rgba(200, 50, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255, 100, 150, 0.08) 0%, transparent 60%);
+    animation: var(--animate-ambient-glow);
+    pointer-events: none;
+  }
+
+  .home-heart-svg {
+    filter:
+      drop-shadow(0 0 30px rgba(255, 60, 120, 0.6))
+      drop-shadow(0 0 60px rgba(255, 60, 120, 0.3))
+      drop-shadow(0 0 120px rgba(255, 30, 80, 0.15));
+  }
+
+  .home-heart-svg .heart-gradient-stop-1 { stop-color: #ff2d6b; }
+  .home-heart-svg .heart-gradient-stop-2 { stop-color: #ff6b9d; }
+  .home-heart-svg .heart-gradient-stop-3 { stop-color: #e0245e; }
+
+  .home-name-text {
+    text-shadow:
+      0 0 20px rgba(255, 255, 255, 0.5),
+      0 0 40px rgba(255, 100, 150, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+    animation: var(--animate-name-glow);
+  }
+
+  .home-message-section-bg {
+    background: linear-gradient(180deg, #0d0015 0%, #1a0022 30%, #2d0a1e 70%, #1a0011 100%);
+  }
+
+  .home-message-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    box-shadow:
+      0 0 50px rgba(255, 50, 100, 0.08),
+      inset 0 0 30px rgba(255, 50, 100, 0.03);
+  }
+
+  @media (min-width: 1024px) {
+    .home-heart-svg {
+      filter:
+        drop-shadow(0 0 40px rgba(255, 60, 120, 0.5))
+        drop-shadow(0 0 80px rgba(255, 60, 120, 0.25))
+        drop-shadow(0 0 150px rgba(255, 30, 80, 0.12));
+    }
+  }
+}
+
+/* ==========================================================================
+   /congrats-aug-2026 — luxury stationery flatlay (envelope, wax seal, letter,
+   photo + photobooth strip tucked behind it). Palette + type pairing lifted
+   from public/references/*.JPG (deep wine, cream stock, script + small-caps
+   serif). See .agent/skills/design-style.md for the wow-factor catalog.
+   ========================================================================== */
+@layer components {
+  .congrats-page-bg {
+    background: radial-gradient(ellipse 90% 70% at 50% 30%, #641a2a 0%, #4a1120 45%, #2c0a14 100%);
+  }
+
+  /* Grounded contact shadow — a soft, wide, blurred ellipse "under" the
+     book so it reads as an object resting on a surface rather than a flat
+     sticker floating on a color field. */
+  .congrats-book-ground-shadow {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: -3%;
+    height: 14%;
+    background: radial-gradient(ellipse at center, rgba(8, 1, 3, 0.55) 0%, rgba(8, 1, 3, 0) 72%);
+    filter: blur(6px);
+    pointer-events: none;
+  }
+
+  /* Book-style reveal: a cover that hinges open on its left edge (like
+     turning a book cover), revealing the letter page underneath. Two
+     layers only — much simpler than the old envelope's 4-layer stack, and
+     the "page" never needs its own rise/reveal choreography since it's
+     just sitting there the whole time. */
+  .congrats-book {
+    box-shadow: 0 30px 70px -8px rgba(10, 2, 4, 0.6), 0 10px 24px -6px rgba(10, 2, 4, 0.45);
+    border-radius: 16px;
+  }
+
+  .congrats-book-page {
+    background: linear-gradient(175deg, #fffdf8 0%, #f8efdd 100%);
+    box-shadow: inset 0 0 0 1px rgba(122, 20, 40, 0.12);
+  }
+
+  .congrats-book-cover {
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1);
+    transform: rotateY(0deg);
+  }
+  .congrats-book-cover.is-open {
+    transform: rotateY(-155deg);
+  }
+
+  .congrats-book-cover-face,
+  .congrats-book-cover-back {
+    backface-visibility: hidden;
+    border-radius: 16px;
+  }
+
+  /* Front face — what you see closed. Subtle diagonal sheen + gold-foil
+     frame, same paper language as the letter itself. */
+  .congrats-book-cover-face {
+    background:
+      linear-gradient(115deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 30%),
+      linear-gradient(160deg, #fbf4e8 0%, #f3e7d2 55%, #ecdcbe 100%);
+  }
+  .congrats-book-cover-face::after {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 1px solid rgba(196, 155, 88, 0.55);
+    box-shadow: inset 0 0 0 3px rgba(122, 20, 40, 0.07);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  /* Back face — the "inside of the cover", briefly visible mid-flip. */
+  .congrats-book-cover-back {
+    transform: rotateY(180deg);
+    background: radial-gradient(ellipse at 30% 20%, #641a2a 0%, #4a1120 60%, #380c17 100%);
+    box-shadow: inset 0 0 0 1px rgba(201, 168, 106, 0.25);
+  }
+  .congrats-book-cover-back::after {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 1px solid rgba(201, 168, 106, 0.3);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .congrats-wax-seal {
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+  }
+
+  .congrats-card-title {
+    background: linear-gradient(100deg, #7a1628 42%, #e3b3ab 50%, #7a1628 58%);
+    background-size: 280% 100%;
+    background-position: 200% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-foil-sweep);
+  }
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+  60% { transform: scale(1); }
+}
+
+@keyframes heartFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes nameGlow {
+  0% {
+    text-shadow:
+      0 0 20px rgba(255, 255, 255, 0.4),
+      0 0 40px rgba(255, 100, 150, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    text-shadow:
+      0 0 30px rgba(255, 255, 255, 0.7),
+      0 0 60px rgba(255, 100, 150, 0.5),
+      0 0 80px rgba(255, 60, 120, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg) scale(0.5);
+  }
+  10% {
+    opacity: 0.8;
+    transform: translateY(-10vh) rotate(15deg) scale(1);
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-105vh) rotate(var(--end-rotate, 45deg)) scale(0.3);
+  }
+}
+
+@keyframes sparkleAnim {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  20% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.5); }
+  80% { opacity: 1; transform: scale(0.8); }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.3; }
+  50% { transform: rotate(45deg) translateY(6px); opacity: 0.6; }
+}
+
+@keyframes ambientGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes emojiPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes cardReveal {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes envelopeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes petalFall {
+  0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.6); }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.5; }
+  100% {
+    opacity: 0;
+    transform: translateY(105vh) rotate(var(--end-rotate, 180deg)) scale(1);
+  }
+}
+
+@keyframes wishIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sheenSweep {
+  to { transform: translateX(130%); }
+}
+
+@keyframes foilSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -20% 0; }
+}
+
+@keyframes burstOut {
+  0% { opacity: 1; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+  70% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--burst-rotate, 90deg));
+  }
+}

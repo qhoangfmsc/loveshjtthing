@@ -145,13 +145,16 @@ export default function Home() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <section className="landing-scene" id="hero">
+      <section
+        className="home-scene-bg relative flex min-h-dvh flex-col items-center justify-center overflow-hidden"
+        id="hero"
+      >
         {/* Floating Mini Hearts */}
-        <div className="floating-hearts">
+        <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
           {hearts.map((h) => (
             <div
               key={h.id}
-              className="mini-heart"
+              className="particle-heart"
               style={
                 {
                   left: `${h.left}%`,
@@ -171,11 +174,11 @@ export default function Home() {
         </div>
 
         {/* Sparkles */}
-        <div className="sparkles-container">
+        <div className="pointer-events-none absolute inset-0 z-[6] overflow-hidden">
           {sparkles.map((s) => (
             <div
               key={s.id}
-              className="sparkle"
+              className="particle-spark particle-spark--white"
               style={
                 {
                   left: `${s.left}%`,
@@ -191,7 +194,7 @@ export default function Home() {
 
         {/* Main Heart + Name */}
         <div
-          className="heart-container"
+          className="animate-heart-float relative z-10 flex items-center justify-center"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "scale(1)" : "scale(0.3)",
@@ -200,7 +203,7 @@ export default function Home() {
           }}
         >
           <svg
-            className="heart-svg"
+            className="home-heart-svg animate-heart-beat h-auto w-[min(75vw,380px)] md:w-[min(50vw,420px)] lg:w-[440px]"
             viewBox="0 0 492 492"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -244,39 +247,45 @@ export default function Home() {
           </svg>
 
           {/* Name */}
-          <div className="name-overlay">
-            <h1 className="name-text">Văn Kiều Bảo Trân</h1>
-            <p className="name-sub">✨ em bé đáng iuu ✨</p>
+          <div className="pointer-events-none absolute top-[35%] left-1/2 w-4/5 -translate-x-1/2 -translate-y-[40%] text-center">
+            <h1 className="home-name-text animate-name-glow font-script text-[clamp(1.4rem,5vw,2.6rem)] leading-[1.3] font-bold tracking-[0.02em] text-white">
+              Văn Kiều Bảo Trân
+            </h1>
+            <p className="animate-fade-in-up [animation-delay:0.4s] mt-[0.5em] font-sans text-[clamp(0.7rem,2.5vw,1rem)] font-medium tracking-[0.25em] text-[rgba(255,200,220,0.8)] uppercase">
+              ✨ em bé đáng iuu ✨
+            </p>
           </div>
         </div>
 
         {/* Bottom Message */}
-        <div className="bottom-section">
-          <p className="love-message">
+        <div className="animate-fade-in-up [animation-delay:0.6s] relative z-10 mt-8 text-center">
+          <p className="font-sans text-[clamp(0.85rem,3vw,1.1rem)] font-normal tracking-[0.05em] text-[rgba(255,180,200,0.7)]">
             Hôm nay của em thế nào rùi?{" "}
-            <span className="love-emoji">🌙</span>
+            <span className="animate-emoji-pop inline-block text-[1.2em]">🌙</span>
           </p>
         </div>
 
         {/* Scroll Hint */}
-        <div className="scroll-hint">
-          <span>kéo xuống nè</span>
-          <div className="scroll-arrow" />
+        <div className="animate-fade-in-up [animation-delay:1s] absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
+          <span className="font-sans text-[0.7rem] tracking-[0.2em] text-[rgba(255,180,200,0.4)] uppercase">
+            kéo xuống nè
+          </span>
+          <div className="animate-bounce-down h-5 w-5 border-r-2 border-b-2 border-[rgba(255,180,200,0.3)]" />
         </div>
       </section>
 
       {/* ===== MESSAGE SECTION ===== */}
       <section
-        className="message-section"
+        className="home-message-section-bg relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 py-12"
         id="message"
         ref={messageSectionRef}
       >
         {/* Background sparkles for section 2 */}
-        <div className="sparkles-container">
+        <div className="pointer-events-none absolute inset-0 z-[6] overflow-hidden">
           {sparkles.slice(0, 12).map((s) => (
             <div
               key={`s2-${s.id}`}
-              className="sparkle"
+              className="particle-spark particle-spark--white"
               style={
                 {
                   left: `${s.left}%`,
@@ -291,7 +300,7 @@ export default function Home() {
         </div>
 
         <div
-          className="message-card"
+          className="home-message-card animate-card-reveal w-full max-w-[500px] rounded-3xl border border-[rgba(255,100,150,0.25)] px-8 py-10 text-center md:px-10 md:py-12"
           style={{
             opacity: messageVisible ? 1 : 0,
             transform: messageVisible
@@ -300,9 +309,11 @@ export default function Home() {
             transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          <h2>Cố lên nha em bé</h2>
-          <p>
-            Bé Trân làm gì anh cũng sẽ ủng hộ hết lunn, 
+          <h2 className="font-script mb-5 text-[clamp(1.8rem,6vw,2.5rem)] font-bold text-[#ff85b3]">
+            Cố lên nha em bé
+          </h2>
+          <p className="font-sans mb-4 text-[clamp(1rem,3.5vw,1.15rem)] leading-[1.9] text-[rgba(255,220,235,0.92)]">
+            Bé Trân làm gì anh cũng sẽ ủng hộ hết lunn,
             nhớ ăn uống đủ với nghỉ ngơi nhiều hơn nữa nhaa 🌿
           </p>
         </div>
