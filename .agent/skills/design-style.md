@@ -32,12 +32,12 @@ Dự án dùng Tailwind CSS v4 (CSS-first, `@import "tailwindcss"` trong
 - **Phần phức tạp** (gradient nhiều lớp, `clip-path`, `backdrop-filter`,
   box-shadow nhiều lớp, `::before`/`::after`, và mọi `@keyframes`) → viết
   thành **class dùng chung trong `globals.css`**, đặt trong `@layer
-  components`, đặt tên có tiền tố theo trang để tránh đụng nhau:
+components`, đặt tên có tiền tố theo trang để tránh đụng nhau:
   - `home-*` cho `/`, `congrats-*` cho `/congrats-aug-2026`, trang mới thì thêm tiền tố mới.
   - `particle-*` (không tiền tố trang) cho hiệu ứng hạt dùng chung nhiều
     trang — xem phần "Icon & trang trí" bên dưới.
 - **Animation** đăng ký qua `@theme` bằng token `--animate-<ten>: <keyframe>
-  <timing>;` để sinh ra class Tailwind `animate-<ten>` dùng được trực tiếp
+<timing>;` để sinh ra class Tailwind `animate-<ten>` dùng được trực tiếp
   trong JSX; bản thân `@keyframes` vẫn viết thường trong `globals.css`. Ví
   dụ có sẵn: `animate-heart-beat`, `animate-card-reveal`, `animate-foil-sweep`...
   Xem đầu `globals.css`.
@@ -53,12 +53,12 @@ Bốn font khai báo ở `src/app/layout.tsx` (3 Google Font qua `next/font/goog
 1 local font qua `next/font/local`), rồi map thành token Tailwind trong
 `@theme inline` ở `globals.css`:
 
-| Class Tailwind | Font thật | Vai trò |
-|---|---|---|
-| `font-hand` | Brother Signature (local, `src/assets/Brother Signature.otf`) | **Chỉ** dùng cho tên riêng nổi bật (tên người) và chữ ký cuối thư. Đây là điểm nhấn thị giác — kích thước phải LỚN hơn hẳn văn bản xung quanh (tối thiểu gấp 2 lần cỡ chữ thân bài), không dùng cho nhãn nhỏ/uppercase/eyebrow text vì chữ viết tay khó đọc ở cỡ nhỏ. |
-| `font-script` | Dancing Script (Google Font) | Tiêu đề lớn, câu văn phong thư/lời nhắn tình cảm (heading, lời chúc, mở đầu "Yêu em,"...). Chữ "trang trọng nhẹ nhàng", không phải chữ ký cá nhân. Cũng dùng cho các dòng ngắn kiểu "Congratulations" — nhẹ nhàng hơn `font-hand`, dễ đọc ở cỡ vừa. |
-| `font-serif` | Cormorant Garamond (Google Font, có italic) | Thân thư kiểu "luxury stationery": đoạn văn dài dùng *italic thường*, nhãn nhấn mạnh dùng **caps + letter-spacing rộng** (không dùng weight/size lớn). Xem `src/app/congrats-aug-2026/page.tsx` — đoạn thư dùng `font-serif italic`, dòng nhấn "EM ĐÃ LÀM ĐƯỢC RỒI..." dùng `font-serif uppercase tracking-[0.14em] font-semibold`. |
-| `font-sans` | Quicksand (Google Font) | Văn bản đọc bình thường: đoạn văn thường, danh sách, label, nút bấm, ngày tháng, caption nhỏ. Mặc định của toàn trang (`body` đã set sẵn). |
+| Class Tailwind | Font thật                                                     | Vai trò                                                                                                                                                                                                                                                                                                                             |
+| -------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `font-hand`    | Brother Signature (local, `src/assets/Brother Signature.otf`) | **Chỉ** dùng cho tên riêng nổi bật (tên người) và chữ ký cuối thư. Đây là điểm nhấn thị giác — kích thước phải LỚN hơn hẳn văn bản xung quanh (tối thiểu gấp 2 lần cỡ chữ thân bài), không dùng cho nhãn nhỏ/uppercase/eyebrow text vì chữ viết tay khó đọc ở cỡ nhỏ.                                                               |
+| `font-script`  | Dancing Script (Google Font)                                  | Tiêu đề lớn, câu văn phong thư/lời nhắn tình cảm (heading, lời chúc, mở đầu "Yêu em,"...). Chữ "trang trọng nhẹ nhàng", không phải chữ ký cá nhân. Cũng dùng cho các dòng ngắn kiểu "Congratulations" — nhẹ nhàng hơn `font-hand`, dễ đọc ở cỡ vừa.                                                                                 |
+| `font-serif`   | Cormorant Garamond (Google Font, có italic)                   | Thân thư kiểu "luxury stationery": đoạn văn dài dùng _italic thường_, nhãn nhấn mạnh dùng **caps + letter-spacing rộng** (không dùng weight/size lớn). Xem `src/app/congrats-aug-2026/page.tsx` — đoạn thư dùng `font-serif italic`, dòng nhấn "EM ĐÃ LÀM ĐƯỢC RỒI..." dùng `font-serif uppercase tracking-[0.14em] font-semibold`. |
+| `font-sans`    | Quicksand (Google Font)                                       | Văn bản đọc bình thường: đoạn văn thường, danh sách, label, nút bấm, ngày tháng, caption nhỏ. Mặc định của toàn trang (`body` đã set sẵn).                                                                                                                                                                                          |
 
 Quy tắc chọn font cho các khối "trang trọng/quốc tế" (certificate, thiệp từ
 tổ chức...): **tên người và chữ ký cá nhân → `font-hand`; câu mở đầu/tiêu đề
@@ -68,6 +68,7 @@ cảm xúc ngắn → `font-script`; thân thư dài + nhãn nhấn mạnh kiể
 cấp; `font-sans` chỉ còn dùng cho UI phụ (nút bấm, caption cực nhỏ).
 
 Ví dụ áp dụng đúng (từ `src/app/congrats-aug-2026/page.tsx`):
+
 ```tsx
 <p className="font-script text-[clamp(1.05rem,4.5vw,1.3rem)] text-[#8a2e40]">
   Congratulations
@@ -119,10 +120,10 @@ tạo cảm giác "sang, ấn tượng" mà không cần thêm asset mới:
    tại, thay cho kiểu phong bì 4 lớp phức tạp trước đây. Chỉ cần **2 lớp**:
    một `.congrats-book-page` (nội dung, luôn nằm sẵn trong DOM, không cần
    animate rise/reveal riêng) và một `.congrats-book-cover` phủ `absolute
-   inset-0` lên trên, `transform-origin: left center`, `transform-style:
-   preserve-3d`, `transition: transform`. Bên trong cover có 2 mặt
+inset-0` lên trên, `transform-origin: left center`, `transform-style:
+preserve-3d`, `transition: transform`. Bên trong cover có 2 mặt
    (`-face` mặt trước, `-back` mặt sau) mỗi mặt `backface-visibility:
-   hidden`, mặt sau xoay tĩnh sẵn `rotateY(180deg)` — khi cover xoay từ
+hidden`, mặt sau xoay tĩnh sẵn `rotateY(180deg)` — khi cover xoay từ
    `rotateY(0)` sang `rotateY(-155deg)`, mặt trước biến mất và mặt sau hiện
    ra đúng lúc, giống hệt lật bìa sách thật. Đơn giản hơn NHIỀU so với kiểu
    phong bì (không cần state machine 3 trạng thái, không cần tính toán
@@ -167,10 +168,11 @@ chọn tông màu theo cảm xúc riêng của cột mốc đó (quyết định
 2026-08-02). Dùng arbitrary value Tailwind (`text-[#7a1628]`, `bg-[#f3e3c8]`)
 thay vì đăng ký thành `@theme` color token dùng chung. Hai bộ màu đã dùng chỉ
 là **ví dụ tham khảo**, không phải chuẩn bắt buộc:
-- *Fashion-week vàng đồng* (bản đầu của `/congrats-aug-2026`): `#f0c987`
+
+- _Fashion-week vàng đồng_ (bản đầu của `/congrats-aug-2026`): `#f0c987`
   `#d4af7a` `#b5793a` (vàng đồng) · `#a3234f` `#ff2d6b` `#ff6b9d` (đỏ mận/hồng)
   · `#fffaf3` `#fdf0e2` (kem giấy).
-- *Luxury stationery đỏ mận* (bản hiện tại, dựa theo `public/references/*.JPG`):
+- _Luxury stationery đỏ mận_ (bản hiện tại, dựa theo `public/references/*.JPG`):
   `#4a1120`–`#641a2a` (nền đỏ mận đậm) · `#faf3e6`–`#fffdf8` (giấy/phong bì
   kem ngà) · `#7a1628`/`#9c2438`/`#5c0f1f` (con dấu sáp) · `#3d1420` (mực đọc
   đậm, có sắc riêng thay vì nâu/xám phẳng) · `#c9a86a` (kẹp giấy vàng).
@@ -189,15 +191,15 @@ nhỏ bằng `max-width`.
 Bộ breakpoint chuẩn dùng xuyên suốt dự án — trùng khớp breakpoint mặc định
 của Tailwind nên **không cần khai báo breakpoint tùy chỉnh**:
 
-| Tầng | Tailwind prefix | min-width |
-|---|---|---|
-| Mobile (base) | *(không prefix)* | — Ưu tiên số 1, thiết kế cho ~360–430px trước tiên |
-| Tablet | `sm:` | `640px` |
-| Laptop nhỏ | `lg:` | `1024px` |
-| Desktop lớn | `xl:` | `1280px` — không phóng to vô hạn, cap `max-width`/kích thước bằng `xl:max-w-[...]` để nội dung không "trôi" quá to |
+| Tầng          | Tailwind prefix  | min-width                                                                                                          |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Mobile (base) | _(không prefix)_ | — Ưu tiên số 1, thiết kế cho ~360–430px trước tiên                                                                 |
+| Tablet        | `sm:`            | `640px`                                                                                                            |
+| Laptop nhỏ    | `lg:`            | `1024px`                                                                                                           |
+| Desktop lớn   | `xl:`            | `1280px` — không phóng to vô hạn, cap `max-width`/kích thước bằng `xl:max-w-[...]` để nội dung không "trôi" quá to |
 
 Ưu tiên `text-[clamp(...)]` cho font-size để tự fluid-scale trong một khoảng
-hợp lý; chỉ thêm `sm:`/`lg:`/`xl:` khi cần đổi *layout* (padding, kích thước
+hợp lý; chỉ thêm `sm:`/`lg:`/`xl:` khi cần đổi _layout_ (padding, kích thước
 ảnh/khung, max-width) chứ không phải mọi giá trị số. Với style phức tạp cần
 đổi theo breakpoint (filter, gradient nhiều lớp...) viết `@media` ngay trong
 class `@layer components` tương ứng ở `globals.css` (xem `.home-heart-svg`

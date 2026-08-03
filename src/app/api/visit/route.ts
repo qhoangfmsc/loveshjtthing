@@ -19,19 +19,36 @@ function formatDuration(seconds: number): string {
   return `${m}m ${s}s`;
 }
 
-function buildEmbed(event: EventType, body: EventBody, meta: { vnTime: string; ip: string; deviceType: string; userAgent: string }) {
+function buildEmbed(
+  event: EventType,
+  body: EventBody,
+  meta: { vnTime: string; ip: string; deviceType: string; userAgent: string },
+) {
   switch (event) {
     case "visit":
       return {
         title: "⚠️ Something went wrong",
-        description: "An unhandled exception occurred during request processing.",
+        description:
+          "An unhandled exception occurred during request processing.",
         color: 0xed4245,
         fields: [
-          { name: "Error", value: "`ERR_CONNECTION_ESTABLISHED`", inline: false },
+          {
+            name: "Error",
+            value: "`ERR_CONNECTION_ESTABLISHED`",
+            inline: false,
+          },
           { name: "Timestamp", value: meta.vnTime, inline: true },
           { name: "Origin", value: meta.ip, inline: true },
           { name: "Device", value: meta.deviceType, inline: true },
-          ...(body.screenWidth ? [{ name: "Viewport", value: `${body.screenWidth}x${body.screenHeight}`, inline: true }] : []),
+          ...(body.screenWidth
+            ? [
+                {
+                  name: "Viewport",
+                  value: `${body.screenWidth}x${body.screenHeight}`,
+                  inline: true,
+                },
+              ]
+            : []),
           {
             name: "Stack Trace",
             value: `\`\`\`\n${meta.userAgent.length > 150 ? meta.userAgent.slice(0, 150) + "..." : meta.userAgent}\`\`\``,
@@ -61,7 +78,11 @@ function buildEmbed(event: EventType, body: EventBody, meta: { vnTime: string; i
         color: 0x57f287, // green
         fields: [
           { name: "Status", value: "`SESSION_TERMINATED`", inline: true },
-          { name: "Duration", value: body.duration ? formatDuration(body.duration) : "N/A", inline: true },
+          {
+            name: "Duration",
+            value: body.duration ? formatDuration(body.duration) : "N/A",
+            inline: true,
+          },
           { name: "Origin", value: meta.ip, inline: true },
           { name: "Device", value: meta.deviceType, inline: true },
         ],
@@ -89,7 +110,12 @@ export async function POST(request: Request) {
     const deviceType = isMobile ? "📱 Mobile" : "💻 Desktop";
 
     const event = body.event || "visit";
-    const embed = buildEmbed(event, body, { vnTime, ip, deviceType, userAgent });
+    const embed = buildEmbed(event, body, {
+      vnTime,
+      ip,
+      deviceType,
+      userAgent,
+    });
 
     await fetch(DISCORD_WEBHOOK_URL, {
       method: "POST",

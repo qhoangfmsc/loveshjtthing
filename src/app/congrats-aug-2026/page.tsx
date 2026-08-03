@@ -34,7 +34,7 @@ export default function CongratsPage() {
   const handleClose = () => setIsOpen(false);
 
   return (
-    <main className="congrats-page-bg relative flex min-h-dvh flex-col items-center justify-center overflow-x-hidden overflow-y-auto px-5 py-6 font-sans sm:px-8 sm:py-10 lg:py-14 xl:py-16">
+    <main className="congrats-page-bg relative flex h-dvh flex-col items-center justify-center overflow-hidden px-[clamp(1rem,4vw,3rem)] py-[clamp(0.75rem,3dvh,3rem)] font-sans">
       <MusicBackground
         src="/sounds/theme.mp3"
         volume={1}
@@ -66,7 +66,7 @@ export default function CongratsPage() {
             : "translate-y-6 scale-95 opacity-0"
         }`}
       >
-        <div className="relative w-full max-w-[320px] [perspective:1800px] sm:max-w-[360px] lg:max-w-[400px]">
+        <div className="relative w-full max-w-[clamp(20rem,min(58vw,72dvh),30rem)] [perspective:1800px]">
           {/* Soft blurred floral props, for flatlay depth */}
           <Flower
             color="#7a1628"
@@ -76,7 +76,7 @@ export default function CongratsPage() {
           <Flower
             color="#c98a95"
             size={44}
-            className="pointer-events-none absolute right-2 -top-18 z-0 opacity-35 blur-[2px] sm:-right-9"
+            className="pointer-events-none absolute -top-18 right-2 z-0 opacity-35 blur-[2px] sm:-right-9"
           />
           <Flower
             color="#c98a95"
@@ -86,12 +86,12 @@ export default function CongratsPage() {
           <Flower
             color="#c98a95"
             size={44}
-            className="pointer-events-none absolute left-4 -bottom-12 z-0 opacity-35 blur-[2px] sm:-right-9"
+            className="pointer-events-none absolute -bottom-12 left-4 z-0 opacity-35 blur-[2px] sm:-right-9"
           />
           <Flower
             color="#7a1628"
             size={64}
-            className="pointer-events-none absolute -bottom-16 right-8 z-0 opacity-40 blur-[2px] sm:-top-8 sm:-left-12"
+            className="pointer-events-none absolute right-8 -bottom-16 z-0 opacity-40 blur-[2px] sm:-top-8 sm:-left-12"
           />
           <div className="congrats-book-ground-shadow" />
 
@@ -130,7 +130,7 @@ export default function CongratsPage() {
             {/* Photo + strip float in above the book once opened — absolute,
                 so they never add to the book's own height/layout. */}
             <div
-              className={`pointer-events-none absolute -top-10 left-3 z-30 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:-top-10 ${
+              className={`pointer-events-none absolute -top-13 left-2 z-30 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 isOpen
                   ? "translate-y-0 opacity-100 delay-300"
                   : "translate-y-3 opacity-0"
@@ -139,7 +139,7 @@ export default function CongratsPage() {
               <PhotoCard rotate={-8} />
             </div>
             <div
-              className={`pointer-events-none absolute -top-12 -right-4 z-30 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:-top-8 ${
+              className={`pointer-events-none absolute -top-14 -right-6 z-30 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 isOpen
                   ? "translate-y-0 opacity-100 delay-500"
                   : "translate-y-3 opacity-0"
@@ -148,31 +148,31 @@ export default function CongratsPage() {
               <PhotoStrip rotate={6} />
             </div>
 
-            <div className="congrats-book-page paper-grain relative z-0 rounded-2xl px-6 pt-8 pb-6 text-center text-[#3d1420] sm:px-10 sm:pt-9 sm:pb-7">
-              <p className="font-script mb-1.5 text-[clamp(0.95rem,4vw,1.15rem)] text-[#8a2e40]">
+            <div className="congrats-book-page paper-grain relative z-0 rounded-2xl px-[clamp(1.25rem,5vw,2.5rem)] pt-[clamp(1rem,4dvh,2.25rem)] pb-[clamp(0.85rem,3dvh,1.75rem)] text-center text-[#3d1420]">
+              <p className="font-script mb-[clamp(0.3rem,1dvh,0.375rem)] text-[clamp(0.8rem,min(4vw,3dvh),1.15rem)] text-[#8a2e40]">
                 Congratulations to
               </p>
-              <h2 className="congrats-card-title font-hand mb-3 text-[clamp(2rem,9.5vw,2.6rem)] leading-none">
+              <h2 className="congrats-card-title font-hand mb-[clamp(0.5rem,1.6dvh,0.75rem)] text-[clamp(1.5rem,min(9.5vw,7dvh),2.6rem)] leading-none">
                 Van Kieu Bao Tran
               </h2>
 
-              <div className="h-4" />
-              <div className="flex flex-col gap-2 items-start justify-start text-left">
-                <p className="font-serif mb-3 text-[0.92rem] leading-[1.55] text-[#3d1420] italic">
-                  Em đã dành thật nhiều tâm huyết và cố gắng để hoàn thành bộ
-                  sưu tập này. Anh rất tự hào vì em đã luôn kiên trì và hết mình
-                  với đam mê.
+              <div className="h-[clamp(0.5rem,2dvh,1rem)]" />
+              <div className="flex flex-col items-start justify-start gap-[clamp(0.3rem,1dvh,0.5rem)] text-left">
+                <p className="mb-[clamp(0.4rem,1.4dvh,0.75rem)] font-serif text-[clamp(0.7rem,2.1dvh,0.92rem)] leading-[1.5] text-[#3d1420] italic">
+                  Em đã dành thật nhiều tâm huyết và cố gắng để hoàn thành rất
+                  là tốt sự kiện lần này rùi. Anh rất tự hào vì em đã luôn kiên
+                  trì và hết mình với đam mê.
                 </p>
-                <p className="font-serif mb-3 text-[0.92rem] leading-[1.55] text-[#3d1420] italic">
-                  Dù không thể ở đó để nhìn em tỏa sáng, anh vẫn luôn tin em đã
-                  làm rất tốt. Chúc mừng vợ yêu.
+                <p className="mb-[clamp(0.4rem,1.4dvh,0.75rem)] font-serif text-[clamp(0.7rem,2.1dvh,0.92rem)] leading-[1.5] text-[#3d1420] italic">
+                  Dù anh không có ở đó để tận mắt chứng kiến em tỏa sáng, nhưng
+                  anh chắc chắn rằng em đã làm rất tốt. Chúc mừng vợ yêu.
                 </p>
-                <p className="font-serif mb-4 text-[0.92rem] leading-[1.55] text-[#3d1420] italic">
+                <p className="mb-[clamp(0.5rem,1.8dvh,1rem)] font-serif text-[clamp(0.7rem,2.1dvh,0.92rem)] leading-[1.5] text-[#3d1420] italic">
                   Nghỉ ngơi và ăn uống đủ nhé! Anh thương em.
                 </p>
               </div>
 
-              <div className="h-4" />
+              <div className="h-[clamp(0.5rem,2dvh,1rem)]" />
 
               <div className="flex flex-row items-center justify-between text-right">
                 <button
@@ -182,7 +182,7 @@ export default function CongratsPage() {
                 >
                   ←
                 </button>
-                <div className="font-hand text-[34px] leading-none text-[#7a1628]">
+                <div className="font-hand text-[clamp(1.25rem,4.2dvh,2.125rem)] leading-none text-[#7a1628]">
                   anh&nbsp;&nbsp;Hoàng
                 </div>
               </div>
@@ -193,20 +193,20 @@ export default function CongratsPage() {
               onClick={handleOpen}
               aria-label="Mở thiệp chúc mừng"
               tabIndex={isOpen ? -1 : 0}
-              className={`congrats-book-cover absolute inset-0 z-20 cursor-pointer border-none bg-transparent p-0 font-sans focus-visible:outline-2 focus-visible:outline-[#e7c9a9] focus-visible:outline-offset-[6px] ${
+              className={`congrats-book-cover absolute inset-0 z-20 cursor-pointer border-none bg-transparent p-0 font-sans focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-[#e7c9a9] ${
                 isOpen ? "is-open pointer-events-none" : ""
               }`}
             >
-              <div className="congrats-book-cover-face absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 pb-10">
-                <p className="font-serif text-[clamp(0.6rem,2.2vw,0.7rem)] font-semibold tracking-[0.26em] text-[#8a2e40] uppercase">
+              <div className="congrats-book-cover-face absolute inset-0 flex flex-col items-center justify-center gap-[clamp(0.5rem,1.6dvh,0.75rem)] px-6 pb-10">
+                <p className="font-serif text-[clamp(0.55rem,min(2.2vw,1.8dvh),0.7rem)] font-semibold tracking-[0.26em] text-[#8a2e40] uppercase">
                   Global Fashion Week All Stars
                 </p>
-                <p className="font-hand text-[clamp(2.1rem,8.5vw,2.6rem)] leading-none text-[#7a1628]">
+                <p className="font-hand text-[clamp(1.7rem,min(8.5vw,6.5dvh),2.6rem)] leading-none text-[#7a1628]">
                   Bao Tran
                 </p>
                 {/* Seal tucked into the corner, off-center on purpose */}
                 <div className="absolute right-8 bottom-6">
-                  <WaxSeal size={52} />
+                  <WaxSeal size={40} />
                 </div>
               </div>
               <div className="congrats-book-cover-back absolute inset-0" />

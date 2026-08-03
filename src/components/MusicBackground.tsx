@@ -10,7 +10,12 @@ interface MusicBackgroundProps {
   className?: string;
 }
 
-const UNLOCK_EVENTS = ["pointerdown", "touchstart", "keydown", "click"] as const;
+const UNLOCK_EVENTS = [
+  "pointerdown",
+  "touchstart",
+  "keydown",
+  "click",
+] as const;
 
 /**
  * Ambient background music, reusable across milestone pages.
@@ -36,7 +41,9 @@ export default function MusicBackground({
     audio.play().catch(() => {});
 
     const stopListening = () =>
-      UNLOCK_EVENTS.forEach((event) => window.removeEventListener(event, unlock));
+      UNLOCK_EVENTS.forEach((event) =>
+        window.removeEventListener(event, unlock),
+      );
 
     const unlock = () => {
       audio.muted = false;

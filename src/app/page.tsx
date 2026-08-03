@@ -98,9 +98,17 @@ export default function Home() {
       const data = JSON.stringify({ event: "exit", duration });
       // sendBeacon is more reliable on page close
       if (navigator.sendBeacon) {
-        navigator.sendBeacon("/api/visit", new Blob([data], { type: "application/json" }));
+        navigator.sendBeacon(
+          "/api/visit",
+          new Blob([data], { type: "application/json" }),
+        );
       } else {
-        fetch("/api/visit", { method: "POST", headers: { "Content-Type": "application/json" }, body: data, keepalive: true }).catch(() => {});
+        fetch("/api/visit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: data,
+          keepalive: true,
+        }).catch(() => {});
       }
     };
 
@@ -134,7 +142,7 @@ export default function Home() {
           }
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     if (messageSectionRef.current) {
       observer.observe(messageSectionRef.current);
@@ -251,22 +259,24 @@ export default function Home() {
             <h1 className="home-name-text animate-name-glow font-script text-[clamp(1.4rem,5vw,2.6rem)] leading-[1.3] font-bold tracking-[0.02em] text-white">
               Văn Kiều Bảo Trân
             </h1>
-            <p className="animate-fade-in-up [animation-delay:0.4s] mt-[0.5em] font-sans text-[clamp(0.7rem,2.5vw,1rem)] font-medium tracking-[0.25em] text-[rgba(255,200,220,0.8)] uppercase">
+            <p className="animate-fade-in-up mt-[0.5em] font-sans text-[clamp(0.7rem,2.5vw,1rem)] font-medium tracking-[0.25em] text-[rgba(255,200,220,0.8)] uppercase [animation-delay:0.4s]">
               ✨ em bé đáng iuu ✨
             </p>
           </div>
         </div>
 
         {/* Bottom Message */}
-        <div className="animate-fade-in-up [animation-delay:0.6s] relative z-10 mt-8 text-center">
+        <div className="animate-fade-in-up relative z-10 mt-8 text-center [animation-delay:0.6s]">
           <p className="font-sans text-[clamp(0.85rem,3vw,1.1rem)] font-normal tracking-[0.05em] text-[rgba(255,180,200,0.7)]">
             Hôm nay của em thế nào rùi?{" "}
-            <span className="animate-emoji-pop inline-block text-[1.2em]">🌙</span>
+            <span className="animate-emoji-pop inline-block text-[1.2em]">
+              🌙
+            </span>
           </p>
         </div>
 
         {/* Scroll Hint */}
-        <div className="animate-fade-in-up [animation-delay:1s] absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
+        <div className="animate-fade-in-up absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 [animation-delay:1s]">
           <span className="font-sans text-[0.7rem] tracking-[0.2em] text-[rgba(255,180,200,0.4)] uppercase">
             kéo xuống nè
           </span>
@@ -312,9 +322,9 @@ export default function Home() {
           <h2 className="font-script mb-5 text-[clamp(1.8rem,6vw,2.5rem)] font-bold text-[#ff85b3]">
             Cố lên nha em bé
           </h2>
-          <p className="font-sans mb-4 text-[clamp(1rem,3.5vw,1.15rem)] leading-[1.9] text-[rgba(255,220,235,0.92)]">
-            Bé Trân làm gì anh cũng sẽ ủng hộ hết lunn,
-            nhớ ăn uống đủ với nghỉ ngơi nhiều hơn nữa nhaa 🌿
+          <p className="mb-4 font-sans text-[clamp(1rem,3.5vw,1.15rem)] leading-[1.9] text-[rgba(255,220,235,0.92)]">
+            Bé Trân làm gì anh cũng sẽ ủng hộ hết lunn, nhớ ăn uống đủ với nghỉ
+            ngơi nhiều hơn nữa nhaa 🌿
           </p>
         </div>
       </section>

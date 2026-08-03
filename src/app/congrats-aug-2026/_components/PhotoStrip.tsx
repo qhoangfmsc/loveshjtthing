@@ -21,7 +21,7 @@ export function PhotoStrip({
       {STRIP_FRAMES.map((f, i) => (
         <div
           key={i}
-          className={`relative h-12 w-12 overflow-hidden sm:h-8 sm:w-1 border-b-4 border-x-4 border-white ${i === 0 ? "border-t-4" : "border-t-0"}`}
+          className={`relative h-[54px] w-[54px] overflow-hidden border-x-4 border-b-4 border-white ${i === 0 ? "border-t-4" : "border-t-0"}`}
         >
           <Image
             src={f.src}

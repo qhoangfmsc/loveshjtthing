@@ -32,6 +32,7 @@ kiểu: cắt (crop), ghép, đổi định dạng, hoặc **xoá file gốc** �
 còn cần thiết sau khi đã tạo ra bản dẫn xuất (derivative).
 
 Được phép tự do, không cần hỏi:
+
 - Tạo bản crop/resize mới và lưu thành **file mới** (không đụng vào file gốc)
 - Đọc/xem ảnh để tham khảo
 

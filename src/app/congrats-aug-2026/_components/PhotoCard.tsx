@@ -14,7 +14,7 @@ export function PhotoCard({
       className={`congrats-photo-card rounded-[3px] p-1.5 pb-4 ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
-      <div className="relative h-[86px] w-[70px] overflow-hidden sm:h-[98px] sm:w-[80px] border border-black/20 shadow-md">
+      <div className="relative h-[90px] w-[70px] overflow-hidden border border-black/20 shadow-md">
         <Image
           className="border-4 border-white"
           src={PHOTO_CARD_SRC}

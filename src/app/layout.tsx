@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Dancing_Script, Quicksand } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  Dancing_Script,
+  Quicksand,
+} from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -61,8 +65,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-thumbnail.png",
-        width: 1672,
-        height: 941,
+        width: 1600,
+        height: 900,
         alt: "Văn Kiều Bảo Trân",
       },
     ],
